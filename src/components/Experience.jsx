@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import FadeSection from './FadeSection'
 
 export default function Experience() {
   const experiences = [
@@ -45,7 +46,7 @@ export default function Experience() {
 
   return (
     <section id="experience" style={{
-      padding: '120px 48px', background: '#0a0a0a',
+      padding: '120px 48px', background: 'rgba(10,10,10,0.3)',
       position: 'relative', overflow: 'hidden'
     }}>
       <div style={{
@@ -56,104 +57,112 @@ export default function Experience() {
       }} />
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
+
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <span style={{ color: '#ff6b00', fontSize: '13px', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>Where I've Worked</span>
-          <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: '800', marginTop: '12px' }}>
-            My <span style={{ color: '#ff6b00' }}>Experience</span>
-          </h2>
-        </motion.div>
+        <FadeSection delay={0}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            style={{ textAlign: 'center', marginBottom: '80px' }}>
+            <span style={{ color: '#ff6b00', fontSize: '13px', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>Where I've Worked</span>
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: '800', marginTop: '12px' }}>
+              My <span style={{ color: '#ff6b00' }}>Experience</span>
+            </h2>
+          </motion.div>
+        </FadeSection>
 
         {/* Timeline */}
-        <div style={{ position: 'relative' }}>
-          {/* Timeline line */}
-          <div style={{
-            position: 'absolute', left: '50%', top: 0, bottom: 0,
-            width: '2px', background: 'linear-gradient(to bottom, #ff6b00, #ff6b0020)',
-            transform: 'translateX(-50%)'
-          }} />
+        <FadeSection delay={0.1}>
+          <div style={{ position: 'relative' }}>
+            <div style={{
+              position: 'absolute', left: '50%', top: 0, bottom: 0,
+              width: '2px', background: 'linear-gradient(to bottom, #ff6b00, #ff6b0020)',
+              transform: 'translateX(-50%)'
+            }} />
 
-          {experiences.map((exp, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              style={{
-                display: 'flex',
-                justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
-                marginBottom: '60px',
-                position: 'relative'
-              }}>
-              {/* Timeline dot */}
+            {experiences.map((exp, i) => (
               <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 + 0.3, type: 'spring' }}
+                key={i}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
                 style={{
-                  position: 'absolute', left: '50%', top: '24px',
-                  width: '16px', height: '16px',
-                  background: '#ff6b00', borderRadius: '50%',
-                  transform: 'translateX(-50%)',
-                  boxShadow: '0 0 20px #ff6b0080',
-                  zIndex: 1
-                }} />
-
-              {/* Card */}
-              <motion.div
-                whileHover={{ y: -8, boxShadow: '0 20px 60px #ff6b0020', borderColor: '#ff6b0050' }}
-                style={{
-                  width: '45%',
-                  background: 'linear-gradient(135deg, #1a1a1a, #111)',
-                  borderRadius: '20px', padding: '32px',
-                  border: '1px solid #2a2a2a',
-                  transition: 'all 0.3s ease'
+                  display: 'flex',
+                  justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                  marginBottom: '60px',
+                  position: 'relative'
                 }}>
-                {/* Header */}
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#fff' }}>{exp.role}</h3>
-                    <span style={{
-                      padding: '3px 10px', background: '#ff6b0020',
-                      color: '#ff6b00', borderRadius: '99px',
-                      fontSize: '11px', fontWeight: '700'
-                    }}>{exp.type}</span>
-                  </div>
-                  <div style={{ color: '#ff6b00', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>
-                    {exp.company} · {exp.location}
-                  </div>
-                  <div style={{ color: '#555', fontSize: '13px' }}>{exp.date}</div>
-                </div>
+                {/* Timeline dot */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: i * 0.1 + 0.3, type: 'spring' }}
+                  style={{
+                    position: 'absolute', left: '50%', top: '24px',
+                    width: '16px', height: '16px',
+                    background: '#ff6b00', borderRadius: '50%',
+                    transform: 'translateX(-50%)',
+                    boxShadow: '0 0 20px #ff6b0080',
+                    zIndex: 1
+                  }} />
 
-                {/* Points */}
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {exp.points.map((point, j) => (
-                    <motion.li
-                      key={j}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: j * 0.1 }}
-                      style={{
-                        display: 'flex', gap: '10px',
-                        color: '#777', fontSize: '13px',
-                        lineHeight: 1.7, marginBottom: '10px'
-                      }}>
-                      <span style={{ color: '#ff6b00', marginTop: '4px', flexShrink: 0 }}>▹</span>
-                      {point}
-                    </motion.li>
-                  ))}
-                </ul>
+                {/* Card */}
+                <motion.div
+                  whileHover={{ y: -8, boxShadow: '0 20px 60px #ff6b0020', borderColor: '#ff6b0050' }}
+                  style={{
+                    width: '45%',
+                    background: 'linear-gradient(135deg, #1a1a1a, #111)',
+                    borderRadius: '20px', padding: '32px',
+                    border: '1px solid #2a2a2a',
+                    transition: 'all 0.3s ease'
+                  }}>
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#fff' }}>{exp.role}</h3>
+                      <span style={{
+                        padding: '3px 10px', background: '#ff6b0020',
+                        color: '#ff6b00', borderRadius: '99px',
+                        fontSize: '11px', fontWeight: '700'
+                      }}>{exp.type}</span>
+                    </div>
+                    <div style={{ color: '#ff6b00', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>
+                      {exp.company} · {exp.location}
+                    </div>
+                    <div style={{ color: '#555', fontSize: '13px' }}>{exp.date}</div>
+                  </div>
+
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    {exp.points.map((point, j) => (
+                      <motion.li
+                        key={j}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: false }}
+                        transition={{ delay: j * 0.12, duration: 0.5, ease: 'easeOut' }}
+                        style={{
+                          display: 'flex', gap: '10px',
+                          color: '#777', fontSize: '13px',
+                          lineHeight: 1.7, marginBottom: '10px'
+                        }}>
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: false }}
+                          transition={{ delay: j * 0.12 + 0.2, type: 'spring' }}
+                          style={{ color: '#ff6b00', marginTop: '4px', flexShrink: 0 }}>▹</motion.span>
+                        {point}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </FadeSection>
+
       </div>
     </section>
   )

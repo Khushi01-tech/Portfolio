@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { SiPython, SiReact, SiJavascript, SiFlask, SiHtml5, SiCplusplus, SiSqlite, SiGit } from 'react-icons/si'
 import { FiCpu, FiUsers, FiMessageSquare, FiRefreshCw, FiClock, FiStar } from 'react-icons/fi'
+import FadeSection from './FadeSection'
 
 export default function Skills() {
     const technical = [
@@ -30,7 +31,7 @@ export default function Skills() {
 
   return (
     <section id="skills" style={{
-      padding: '120px 48px', background: '#0a0a0a', position: 'relative', overflow: 'hidden'
+      padding: '120px 48px', background: 'rgba(10,10,10,0.3)', position: 'relative', overflow: 'hidden'
     }}>
       <style>{`
         @keyframes shimmer {
@@ -48,10 +49,11 @@ export default function Skills() {
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
         {/* Header */}
+        <FadeSection delay={0}></FadeSection>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           style={{ textAlign: 'center', marginBottom: '80px' }}>
           <span style={{ color: '#ff6b00', fontSize: '13px', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>What I Know</span>
           <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: '800', marginTop: '12px' }}>
@@ -63,7 +65,7 @@ export default function Skills() {
         <motion.h3
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           style={{ fontSize: '20px', fontWeight: '700', marginBottom: '32px', color: '#fff' }}>
           Technical Skills
         </motion.h3>
@@ -74,7 +76,7 @@ export default function Skills() {
               key={i}
               initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: i * 0.1 }}
               style={{
                 background: '#1a1a1a', borderRadius: '14px',
@@ -91,7 +93,7 @@ export default function Skills() {
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: `${skill.level}%` }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 1, delay: i * 0.1, ease: 'easeOut' }}
                   style={{
                     height: '6px', borderRadius: '99px',
@@ -107,36 +109,36 @@ export default function Skills() {
         <motion.h3
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           style={{ fontSize: '20px', fontWeight: '700', marginBottom: '32px', color: '#fff' }}>
           Soft Skills
         </motion.h3>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '16px', marginBottom: '80px' }}>
-          {soft.map((skill, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -8, borderColor: '#ff6b00', boxShadow: '0 10px 40px #ff6b0030' }}
-              style={{
-                background: '#1a1a1a', borderRadius: '14px',
-                padding: '24px 16px', border: '1px solid #2a2a2a',
-                textAlign: 'center', cursor: 'default', transition: 'all 0.3s'
-              }}>
-              <div style={{ marginBottom: '10px' }}>{skill.icon}</div>
-              <div style={{ fontSize: '12px', fontWeight: '600', color: '#ccc' }}>{skill.name}</div>
-            </motion.div>
-          ))}
-        </div>
+  {soft.map((skill, i) => (
+    <motion.div
+      key={i}
+      initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ delay: i * 0.08, type: 'spring', stiffness: 200, damping: 15 }}
+      whileHover={{ y: -8, borderColor: '#ff6b00', boxShadow: '0 10px 40px #ff6b0030' }}
+      style={{
+        background: '#1a1a1a', borderRadius: '14px',
+        padding: '24px 16px', border: '1px solid #2a2a2a',
+        textAlign: 'center', cursor: 'default', transition: 'all 0.3s'
+      }}>
+      <div style={{ marginBottom: '10px', color: '#ff6b00' }}>{skill.icon}</div>
+      <div style={{ fontSize: '12px', fontWeight: '600', color: '#ccc' }}>{skill.name}</div>
+    </motion.div>
+  ))}
+</div>
 
         {/* Tools */}
         <motion.h3
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           style={{ fontSize: '20px', fontWeight: '700', marginBottom: '32px', color: '#fff' }}>
           Tools & Platforms
         </motion.h3>
@@ -147,7 +149,7 @@ export default function Skills() {
               key={i}
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: i * 0.05, type: 'spring' }}
               whileHover={{ scale: 1.1, background: '#ff6b00', color: 'white' }}
               style={{
