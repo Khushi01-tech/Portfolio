@@ -45,7 +45,7 @@ export default function Cursor() {
           scale: hovering ? 1.8 : clicking ? 0.8 : 1,
           opacity: pos.x === 0 ? 0 : 1
         }}
-        transition={{ type: 'tween', duration: 0.08, ease: 'linear' }}
+        transition={{ type: 'tween', duration: 0.03, ease: 'linear' }}
         style={{
           position: 'fixed', width: '40px', height: '40px',
           border: `2px solid ${hovering ? '#ff6b00' : '#ff6b0060'}`,
