@@ -45,22 +45,24 @@ export default function Cursor() {
           scale: hovering ? 1.8 : clicking ? 0.8 : 1,
           opacity: pos.x === 0 ? 0 : 1
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{ type: 'tween', duration: 0.08, ease: 'linear' }}
         style={{
           position: 'fixed', width: '40px', height: '40px',
           border: `2px solid ${hovering ? '#ff6b00' : '#ff6b0060'}`,
           borderRadius: '50%', pointerEvents: 'none', zIndex: 99999,
           mixBlendMode: 'difference'
         }} />
-
-      {/* Inner dot */}
-      <motion.div
-        animate={{ x: pos.x - 4, y: pos.y - 4 , opacity: pos.x === 0 ? 0 : 1 }}
-        transition={{ type: 'spring', stiffness: 800, damping: 35 }}
+  
+      {/* Inner dot — no animation, instant follow */}
+      <div
         style={{
-          position: 'fixed', width: '8px', height: '8px',
+          position: 'fixed',
+          width: '8px', height: '8px',
           background: '#ff6b00', borderRadius: '50%',
-          pointerEvents: 'none', zIndex: 99999
+          pointerEvents: 'none', zIndex: 99999,
+          transform: `translate(${pos.x - 4}px, ${pos.y - 4}px)`,
+          opacity: pos.x === 0 ? 0 : 1,
+          transition: 'opacity 0.3s'
         }} />
     </>
   )
