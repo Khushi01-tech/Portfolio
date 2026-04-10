@@ -11,7 +11,7 @@ export default function Cursor() {
     document.body.style.cursor = 'none'
     const move = (e) => {
       setPos({ x: e.clientX, y: e.clientY })
-      setTimeout(() => setDot({ x: e.clientX, y: e.clientY }), 80)
+      setDot({ x: e.clientX, y: e.clientY })
     }
     const down = () => setClicking(true)
     const up = () => setClicking(false)
@@ -45,7 +45,7 @@ export default function Cursor() {
           scale: hovering ? 1.8 : clicking ? 0.8 : 1,
           opacity: pos.x === 0 ? 0 : 1
         }}
-        transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         style={{
           position: 'fixed', width: '40px', height: '40px',
           border: `2px solid ${hovering ? '#ff6b00' : '#ff6b0060'}`,
@@ -56,7 +56,7 @@ export default function Cursor() {
       {/* Inner dot */}
       <motion.div
         animate={{ x: pos.x - 4, y: pos.y - 4 , opacity: pos.x === 0 ? 0 : 1 }}
-        transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+        transition={{ type: 'spring', stiffness: 800, damping: 35 }}
         style={{
           position: 'fixed', width: '8px', height: '8px',
           background: '#ff6b00', borderRadius: '50%',
