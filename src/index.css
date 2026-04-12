@@ -83,3 +83,7 @@ section::after {
 .fade-scale-up {
   animation: fadeScaleUp 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
+
+@supports (-webkit-harp: initial) {
+  * { cursor: auto !important; }
+}

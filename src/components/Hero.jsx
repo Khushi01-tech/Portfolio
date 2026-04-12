@@ -68,6 +68,11 @@ function BrainNodes() {
 // Global wave canvas component
 function WaveCanvas() {
   const canvasRef = useRef(null)
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+  if (isSafari) {
+  canvas.style.display = 'none'
+  return
+}
 
   useEffect(() => {
     const canvas = canvasRef.current
