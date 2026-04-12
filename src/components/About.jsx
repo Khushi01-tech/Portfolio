@@ -14,14 +14,13 @@ export default function About() {
     { icon: <FiCode size={32} />, title: 'Full-Stack Dev', desc: 'Building end-to-end applications with React and Python Flask' },
     { icon: <FiCpu size={32} />, title: 'Problem Solver', desc: 'Turning complex technical problems into clean, working solutions' },
     { icon: <FiCompass size={32} />, title: 'Leader', desc: 'Led camping expeditions for 2+ years, building teamwork skills' },
-    { icon: <FiBookOpen size={32} />, title: 'CS Student', desc: 'Bachelor of Science in Computer Science, graduated April 2026' },
+    { icon: <FiBookOpen size={32} />, title: 'CS Graduate', desc: 'Bachelor of Science in Computer Science, graduated April 2026' },
   ]
 
   return (
     <section id="about" style={{
-      padding: '120px 48px', background: 'rgba(13,13,13,0.4)', position: 'relative', overflow: 'hidden'
+      padding: '80px 24px', background: 'rgba(13,13,13,0.4)', position: 'relative', overflow: 'hidden'
     }}>
-      {/* Orbs */}
       <div style={{
         position: 'absolute', top: '10%', left: '5%',
         width: '300px', height: '300px',
@@ -37,46 +36,42 @@ export default function About() {
 
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-        {/* Section Header */}
         <FadeSection delay={0}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.6 }}
-            style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <span style={{
-              color: '#ff6b00', fontSize: '13px', fontWeight: '700',
-              letterSpacing: '3px', textTransform: 'uppercase'
-            }}>Who I Am</span>
+            style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <span style={{ color: '#ff6b00', fontSize: '13px', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>Who I Am</span>
             <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: '800', marginTop: '12px' }}>
               About <span style={{ color: '#ff6b00' }}>Me</span>
             </h2>
           </motion.div>
         </FadeSection>
 
-        {/* Bio */}
         <FadeSection delay={0.1}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.6 }}
-            style={{ maxWidth: '800px', margin: '0 auto 80px', textAlign: 'center' }}>
-            <p style={{ color: '#999', lineHeight: 1.9, fontSize: '16px', marginBottom: '20px' }}>
+            style={{ maxWidth: '800px', margin: '0 auto 60px', textAlign: 'center' }}>
+            <p style={{ color: '#999', lineHeight: 1.9, fontSize: '15px', marginBottom: '20px' }}>
               I'm a Computer Science student at the University of Lethbridge, originally from India, graduated April 2026. I'm passionate about turning ideas into real software — whether that's building full-stack applications, solving technical problems, or creating tools people actually use.
             </p>
-            <p style={{ color: '#999', lineHeight: 1.9, fontSize: '16px' }}>
+            <p style={{ color: '#999', lineHeight: 1.9, fontSize: '15px' }}>
               Beyond coding, I'm an outdoor enthusiast who led annual camping expeditions for 2+ years back in India, which taught me leadership, teamwork, and staying calm under pressure. I'm looking to join a software development team where I can contribute, grow, and help build something meaningful.
             </p>
           </motion.div>
         </FadeSection>
 
-        {/* Cards */}
+        {/* Cards — 2 cols on mobile, 4 on desktop */}
         <FadeSection delay={0.2}>
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '24px', marginBottom: '80px'
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '16px', marginBottom: '40px'
           }}>
             {cards.map((card, i) => (
               <motion.div
@@ -85,31 +80,28 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-                whileHover={{ y: -12, scale: 1.03, boxShadow: '0 20px 60px #ff6b0030', borderColor: '#ff6b00' }}
+                whileHover={{ y: -8, scale: 1.02, boxShadow: '0 20px 60px #ff6b0030', borderColor: '#ff6b00' }}
                 style={{
                   background: 'linear-gradient(135deg, #1a1a1a, #111)',
-                  borderRadius: '20px', padding: '32px 24px',
+                  borderRadius: '16px', padding: '24px 20px',
                   border: '1px solid #2a2a2a', cursor: 'default',
-                  transition: 'all 0.3s ease', transformStyle: 'preserve-3d'
+                  transition: 'all 0.3s ease'
                 }}>
-                <motion.div
-                  initial={{ scale: 0, rotate: -20 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={{ once: false }}
-                  transition={{ delay: i * 0.15 + 0.3, type: 'spring', stiffness: 200 }}
-                  style={{ marginBottom: '16px', color: '#ff6b00' }}>
-                  {card.icon}
-                </motion.div>
-                <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '12px', color: '#fff' }}>{card.title}</h3>
-                <p style={{ fontSize: '13px', color: '#666', lineHeight: 1.7 }}>{card.desc}</p>
+                <div style={{ marginBottom: '12px', color: '#ff6b00' }}>{card.icon}</div>
+                <h3 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '8px', color: '#fff' }}>{card.title}</h3>
+                <p style={{ fontSize: '12px', color: '#666', lineHeight: 1.7 }}>{card.desc}</p>
               </motion.div>
             ))}
           </div>
         </FadeSection>
 
-        {/* Stats */}
+        {/* Stats — 2 cols on mobile, 4 on desktop */}
         <FadeSection delay={0.3}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '60px' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '16px', marginBottom: '48px'
+          }}>
             {stats.map((stat, i) => (
               <motion.div
                 key={i}
@@ -119,19 +111,18 @@ export default function About() {
                 transition={{ duration: 0.5, delay: i * 0.1, type: 'spring' }}
                 whileHover={{ scale: 1.05, borderColor: '#ff6b00' }}
                 style={{
-                  textAlign: 'center', padding: '30px',
+                  textAlign: 'center', padding: '24px 16px',
                   background: 'linear-gradient(135deg, #1a1a1a, #111)',
                   borderRadius: '16px', border: '1px solid #2a2a2a',
                   transition: 'border-color 0.3s'
                 }}>
-                <div style={{ fontSize: '42px', fontWeight: '800', color: '#ff6b00', lineHeight: 1 }}>{stat.number}</div>
-                <div style={{ fontSize: '12px', color: '#666', marginTop: '8px', letterSpacing: '1px', textTransform: 'uppercase' }}>{stat.label}</div>
+                <div style={{ fontSize: '36px', fontWeight: '800', color: '#ff6b00', lineHeight: 1 }}>{stat.number}</div>
+                <div style={{ fontSize: '11px', color: '#666', marginTop: '8px', letterSpacing: '1px', textTransform: 'uppercase' }}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </FadeSection>
 
-        {/* CTA */}
         <FadeSection delay={0.4}>
           <motion.div
             initial={{ opacity: 0 }}
@@ -146,7 +137,7 @@ export default function About() {
                 display: 'inline-block', padding: '16px 40px',
                 background: '#ff6b00', color: 'white',
                 borderRadius: '8px', fontWeight: '700',
-                fontSize: '15px', cursor: 'pointer'
+                fontSize: '15px', cursor: 'pointer', textDecoration: 'none'
               }}>
               Get In Touch
             </motion.a>
@@ -154,6 +145,13 @@ export default function About() {
         </FadeSection>
 
       </div>
+
+      <style>{`
+        @media (min-width: 768px) {
+          #about .cards-grid { grid-template-columns: repeat(4, 1fr) !important; }
+          #about .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+      `}</style>
     </section>
   )
 }

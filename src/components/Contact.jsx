@@ -22,7 +22,7 @@ export default function Contact() {
 
   return (
     <section id="contact" style={{
-      padding: '120px 48px', background: 'rgba(13,13,13,0.4)',
+      padding: '80px 24px', background: 'rgba(13,13,13,0.4)',
       position: 'relative', overflow: 'hidden'
     }}>
       <div style={{
@@ -35,37 +35,36 @@ export default function Contact() {
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
 
-        {/* Header */}
         <FadeSection delay={0}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
-            style={{ textAlign: 'center', marginBottom: '80px' }}>
+            style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span style={{ color: '#ff6b00', fontSize: '13px', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>Get In Touch</span>
             <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: '800', marginTop: '12px' }}>
               Contact <span style={{ color: '#ff6b00' }}>Me</span>
             </h2>
-            <p style={{ color: '#666', fontSize: '16px', marginTop: '16px', maxWidth: '500px', margin: '16px auto 0' }}>
+            <p style={{ color: '#666', fontSize: '15px', marginTop: '16px', maxWidth: '500px', margin: '16px auto 0' }}>
               I'm currently looking for new opportunities. Whether you have a question or just want to say hi — my inbox is always open!
             </p>
           </motion.div>
         </FadeSection>
 
-        {/* Grid */}
         <FadeSection delay={0.1}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
+          {/* Single column on mobile, two columns on desktop */}
+          <div className="contact-grid" style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
 
-            {/* Left - Contact Info */}
+            {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.7 }}>
-              <h3 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '32px' }}>
+              <h3 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '16px' }}>
                 Let's work <span style={{ color: '#ff6b00' }}>together</span>
               </h3>
-              <p style={{ color: '#666', lineHeight: 1.8, fontSize: '15px', marginBottom: '40px' }}>
+              <p style={{ color: '#666', lineHeight: 1.8, fontSize: '14px', marginBottom: '24px' }}>
                 I'm actively looking for Software Developer roles and open to IT support positions. If you have an opportunity that matches my skills, I'd love to hear from you!
               </p>
               {contactInfo.map((item, i) => (
@@ -73,6 +72,7 @@ export default function Contact() {
                   key={i}
                   href={item.href}
                   target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false }}
@@ -80,25 +80,25 @@ export default function Contact() {
                   whileHover={{ x: 8, borderColor: '#ff6b00' }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: '16px',
-                    padding: '20px 24px', background: '#1a1a1a',
+                    padding: '16px 20px', background: '#1a1a1a',
                     borderRadius: '14px', border: '1px solid #2a2a2a',
                     marginBottom: '12px', cursor: 'pointer',
-                    transition: 'all 0.3s'
+                    transition: 'all 0.3s', textDecoration: 'none'
                   }}>
-                  <span style={{ fontSize: '24px' }}>{item.icon}</span>
-                  <div>
+                  <span style={{ color: '#ff6b00' }}>{item.icon}</span>
+                  <div style={{ overflow: 'hidden' }}>
                     <div style={{ fontSize: '11px', color: '#555', textTransform: 'uppercase', letterSpacing: '1px' }}>{item.label}</div>
-                    <div style={{ fontSize: '14px', color: '#ccc', fontWeight: '600', marginTop: '2px' }}>{item.value}</div>
+                    <div style={{ fontSize: '13px', color: '#ccc', fontWeight: '600', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.value}</div>
                   </div>
-                  <span style={{ marginLeft: 'auto', color: '#ff6b00' }}>↗</span>
+                  <span style={{ marginLeft: 'auto', color: '#ff6b00', flexShrink: 0 }}>↗</span>
                 </motion.a>
               ))}
             </motion.div>
 
-            {/* Right - Form */}
+            {/* Form */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.7 }}>
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -141,7 +141,7 @@ export default function Contact() {
                 <div>
                   <label style={{ fontSize: '12px', color: '#555', letterSpacing: '1px', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>Message</label>
                   <textarea
-                    required rows={6}
+                    required rows={5}
                     placeholder="Tell me about the opportunity..."
                     value={form.message}
                     onChange={e => setForm({ ...form, message: e.target.value })}
@@ -175,6 +175,19 @@ export default function Contact() {
         </FadeSection>
 
       </div>
+
+      <style>{`
+        @media (min-width: 768px) {
+          .contact-grid {
+            flex-direction: row !important;
+            gap: 60px !important;
+          }
+          .contact-grid > div {
+            flex: 1;
+          }
+          #contact { padding: 120px 48px !important; }
+        }
+      `}</style>
     </section>
   )
 }
