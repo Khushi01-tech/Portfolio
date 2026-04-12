@@ -12,7 +12,9 @@ import Loader from './components/Loader'
 import Cursor from './components/Cursor'
 
 export default function App() {
-  useEffect(() => {
+  const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+   useEffect(() => {
     const handleMouseMove = (e) => {
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`)
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`)
