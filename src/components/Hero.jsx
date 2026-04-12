@@ -8,7 +8,7 @@ import * as THREE from 'three'
 function BrainNodes() {
   const groupRef = useRef()
   const count = 80
-
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
   const { positions, lineGeo } = useMemo(() => {
     const pos = []
     for (let i = 0; i < count; i++) {
@@ -304,25 +304,27 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* RIGHT — 3D Brain */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            style={{ width: '480px', height: '480px', flexShrink: 0, position: 'relative' }}>
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'radial-gradient(circle at center, #ff6b0020 0%, transparent 70%)',
-              borderRadius: '50%', pointerEvents: 'none'
-            }} />
-            <Canvas camera={{ position: [0, 0, 6], fov: 45 }}
-              style={{ background: 'transparent' }}
-              gl={{ alpha: true, antialias: true }}>
-              <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.4}>
-                <BrainNodes />
-              </Float>
-            </Canvas>
-          </motion.div>
+         {/* RIGHT — 3D Brain */}
+<motion.div
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ delay: 0.4, duration: 1 }}
+  style={{ width: '480px', height: '480px', flexShrink: 0, position: 'relative' }}>
+  <div style={{
+    position: 'absolute', inset: 0,
+    background: 'radial-gradient(circle at center, #ff6b0020 0%, transparent 70%)',
+    borderRadius: '50%', pointerEvents: 'none'
+  }} />
+  {!isMobile && (
+    <Canvas camera={{ position: [0, 0, 6], fov: 45 }}
+      style={{ background: 'transparent' }}
+      gl={{ alpha: true, antialias: true }}>
+      <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.4}>
+        <BrainNodes />
+      </Float>
+    </Canvas>
+  )}
+</motion.div>
         </div>
 
         {/* Scroll indicator */}

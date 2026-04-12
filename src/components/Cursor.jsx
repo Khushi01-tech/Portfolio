@@ -7,7 +7,8 @@ export default function Cursor() {
   const [clicking, setClicking] = useState(false)
   const [hovering, setHovering] = useState(false)
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-   if (isSafari) return null
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  if (isSafari || isMobile) return null
 
   useEffect(() => {
     document.body.style.cursor = 'none'

@@ -29,7 +29,8 @@ export default function App() {
       
      
        {/* Global animated orbs */}
-{!/^((?!chrome|android).)*safari/i.test(navigator.userAgent) && (
+       {!/^((?!chrome|android).)*safari/i.test(navigator.userAgent) && 
+ !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && (
   <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
     <motion.div
       animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
