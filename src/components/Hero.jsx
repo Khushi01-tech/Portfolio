@@ -5,10 +5,13 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
 import * as THREE from 'three'
 
+const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
 function BrainNodes() {
   const groupRef = useRef()
   const count = 80
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
   const { positions, lineGeo } = useMemo(() => {
     const pos = []
     for (let i = 0; i < count; i++) {
@@ -65,17 +68,14 @@ function BrainNodes() {
   )
 }
 
-// Global wave canvas component
 function WaveCanvas() {
   const canvasRef = useRef(null)
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-  if (isSafari) {
-  canvas.style.display = 'none'
-  return
-}
 
   useEffect(() => {
+    if (isSafari || isMobile) return
+
     const canvas = canvasRef.current
+    if (!canvas) return
     const ctx = canvas.getContext('2d')
 
     const setSize = () => {
@@ -98,7 +98,7 @@ function WaveCanvas() {
             baseY: j * spacing,
             size: Math.random() * 1.4 + 0.4,
             offset: Math.random() * Math.PI * 2,
-            opacity: Math.random() * 0.25 + 0.04
+            opacity: Math.random() * 0.12 + 0.02
           })
         }
       }
@@ -136,6 +136,8 @@ function WaveCanvas() {
     }
   }, [])
 
+  if (isSafari || isMobile) return null
+
   return (
     <canvas
       ref={canvasRef}
@@ -146,7 +148,7 @@ function WaveCanvas() {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 0,
-        opacity: 100,
+        opacity: 1,
       }}
     />
   )
@@ -157,49 +159,53 @@ export default function Hero() {
 
   return (
     <>
-      {/* Wave canvas fixed — covers whole site */}
       <WaveCanvas />
 
       <section id="home" style={{
         minHeight: '100vh', display: 'flex', alignItems: 'center',
-        padding: '0 64px', position: 'relative', overflow: 'hidden',
+        padding: isMobile ? '0 24px' : '0 64px',
+        position: 'relative', overflow: 'hidden',
         background: 'transparent'
       }}>
         <style>{`@keyframes blink { 50% { opacity: 0 } }`}</style>
 
-        {/* Floating code blocks */}
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-          {[
-            { code: 'const App = () => {', x: '5%', y: '10%', r: '-8deg' },
-            { code: 'def analyze_git():', x: '3%', y: '35%', r: '10deg' },
-            { code: 'npm run build', x: '8%', y: '60%', r: '8deg' },
-            { code: 'return <Portfolio />', x: '5%', y: '80%', r: '5deg' },
-            { code: 'pip install flask', x: '40%', y: '5%', r: '7deg' },
-            { code: 'useState([])', x: '45%', y: '90%', r: '-4deg' },
-          ].map((item, i) => (
-            <motion.div key={i}
-              animate={{ y: [0, -12, 0], opacity: [0.2, 0.45, 0.2] }}
-              transition={{ duration: 5 + i * 0.4, delay: i * 0.25, repeat: Infinity, ease: 'easeInOut' }}
-              style={{
-                position: 'absolute', left: item.x, top: item.y,
-                background: 'rgba(20,20,20,0.7)', border: '1px solid #ff6b0020',
-                borderRadius: '8px', padding: '8px 14px', fontFamily: 'monospace',
-                fontSize: '11px', color: '#ff6b0060', whiteSpace: 'nowrap',
-                transform: `rotate(${item.r})`, backdropFilter: 'blur(4px)',
-              }}>
-              {item.code}
-            </motion.div>
-          ))}
-        </div>
+        {/* Floating code blocks — hidden on mobile */}
+        {!isMobile && (
+          <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+            {[
+              { code: 'const App = () => {', x: '5%', y: '10%', r: '-8deg' },
+              { code: 'def analyze_git():', x: '3%', y: '35%', r: '10deg' },
+              { code: 'npm run build', x: '8%', y: '60%', r: '8deg' },
+              { code: 'return <Portfolio />', x: '5%', y: '80%', r: '5deg' },
+              { code: 'pip install flask', x: '40%', y: '5%', r: '7deg' },
+              { code: 'useState([])', x: '45%', y: '90%', r: '-4deg' },
+            ].map((item, i) => (
+              <motion.div key={i}
+                animate={{ y: [0, -12, 0], opacity: [0.2, 0.45, 0.2] }}
+                transition={{ duration: 5 + i * 0.4, delay: i * 0.25, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute', left: item.x, top: item.y,
+                  background: 'rgba(20,20,20,0.7)', border: '1px solid #ff6b0020',
+                  borderRadius: '8px', padding: '8px 14px', fontFamily: 'monospace',
+                  fontSize: '11px', color: '#ff6b0060', whiteSpace: 'nowrap',
+                  transform: `rotate(${item.r})`, backdropFilter: 'blur(4px)',
+                }}>
+                {item.code}
+              </motion.div>
+            ))}
+          </div>
+        )}
 
-        {/* SPLIT LAYOUT */}
+        {/* SPLIT LAYOUT — stacks on mobile */}
         <div style={{
           maxWidth: '1200px', margin: '0 auto', width: '100%',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: 'center', justifyContent: 'space-between',
           gap: '40px', position: 'relative', zIndex: 1
         }}>
           {/* LEFT — Text */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'center' : 'flex-start', textAlign: isMobile ? 'center' : 'left' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               style={{
@@ -217,7 +223,7 @@ export default function Hero() {
               transition={{ delay: 0.1 }}
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 'clamp(52px, 8vw, 110px)',
+                fontSize: isMobile ? '72px' : 'clamp(52px, 8vw, 110px)',
                 fontWeight: '900', lineHeight: 0.9,
                 marginBottom: '0px', letterSpacing: '-4px', color: '#ffffff'
               }}>
@@ -229,7 +235,7 @@ export default function Hero() {
               transition={{ delay: 0.2 }}
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 'clamp(52px, 8vw, 110px)',
+                fontSize: isMobile ? '72px' : 'clamp(52px, 8vw, 110px)',
                 fontWeight: '900', lineHeight: 0.9,
                 marginBottom: '28px', letterSpacing: '-4px',
                 WebkitTextStroke: '2px #ff6b00',
@@ -262,7 +268,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '48px' }}>
+              style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '48px', justifyContent: isMobile ? 'center' : 'flex-start' }}>
               <motion.a href="#projects"
                 whileHover={{ scale: 1.05, boxShadow: '0 0 40px #ff6b0060' }}
                 whileTap={{ scale: 0.95 }}
@@ -289,7 +295,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              style={{ display: 'flex', gap: '28px' }}>
+              style={{ display: 'flex', gap: '28px', justifyContent: isMobile ? 'center' : 'flex-start' }}>
               {[
                 { icon: <FiGithub size={22} />, url: 'https://github.com/Khushi01-tech' },
                 { icon: <FiLinkedin size={22} />, url: 'https://www.linkedin.com/in/khushi-shah-005816306/' },
@@ -304,27 +310,27 @@ export default function Hero() {
             </motion.div>
           </div>
 
-         {/* RIGHT — 3D Brain */}
-<motion.div
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ delay: 0.4, duration: 1 }}
-  style={{ width: '480px', height: '480px', flexShrink: 0, position: 'relative' }}>
-  <div style={{
-    position: 'absolute', inset: 0,
-    background: 'radial-gradient(circle at center, #ff6b0020 0%, transparent 70%)',
-    borderRadius: '50%', pointerEvents: 'none'
-  }} />
-  {!isMobile && (
-    <Canvas camera={{ position: [0, 0, 6], fov: 45 }}
-      style={{ background: 'transparent' }}
-      gl={{ alpha: true, antialias: true }}>
-      <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.4}>
-        <BrainNodes />
-      </Float>
-    </Canvas>
-  )}
-</motion.div>
+          {/* RIGHT — 3D Brain (hidden on mobile) */}
+          {!isMobile && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 1 }}
+              style={{ width: '480px', height: '480px', flexShrink: 0, position: 'relative' }}>
+              <div style={{
+                position: 'absolute', inset: 0,
+                background: 'radial-gradient(circle at center, #ff6b0020 0%, transparent 70%)',
+                borderRadius: '50%', pointerEvents: 'none'
+              }} />
+              <Canvas camera={{ position: [0, 0, 6], fov: 45 }}
+                style={{ background: 'transparent' }}
+                gl={{ alpha: true, antialias: true }}>
+                <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.4}>
+                  <BrainNodes />
+                </Float>
+              </Canvas>
+            </motion.div>
+          )}
         </div>
 
         {/* Scroll indicator */}
