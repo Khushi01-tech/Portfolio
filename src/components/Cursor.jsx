@@ -45,15 +45,17 @@ export default function Cursor() {
           scale: hovering ? 1.8 : clicking ? 0.8 : 1,
           opacity: pos.x === 0 ? 0 : 1
         }}
-        transition={{ type: 'tween', duration: 0.07, ease: 'linear' }}
+        transition={{ type: 'tween', duration: 0.09, ease: 'linear' }}
         style={{
           position: 'fixed', width: '40px', height: '40px',
           border: `2px solid ${hovering ? '#ff6b00' : '#ff6b0060'}`,
           borderRadius: '50%', pointerEvents: 'none', zIndex: 99999,
-          mixBlendMode: 'difference'
+          mixBlendMode: 'difference',
+          willChange: 'transform',
+          transform: 'translateZ(0)'
         }} />
   
-      {/* Inner dot — no animation, instant follow */}
+      {/* Inner dot —*/}
       <div
         style={{
           position: 'fixed',
@@ -62,6 +64,7 @@ export default function Cursor() {
           pointerEvents: 'none', zIndex: 99999,
           transform: `translate(${pos.x - 4}px, ${pos.y - 4}px)`,
           opacity: pos.x === 0 ? 0 : 1,
+          willChange: 'transform',
           transition: 'opacity 0.3s'
         }} />
     </>

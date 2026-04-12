@@ -46,14 +46,14 @@ export default function Navbar() {
           </motion.a>
         ))}
         <motion.a
-          href="#contact"
-          whileHover={{ scale: 1.05, boxShadow: '0 0 20px #ff6b0060' }}
-          whileTap={{ scale: 0.95 }}
-          style={{
-            padding: '10px 24px', background: '#ff6b00', color: 'white',
-            borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer'
-          }}>
-          Hire Me
+        href="mailto:Khushi0101shah@gmail.com"
+        whileHover={{ scale: 1.05, boxShadow: '0 0 20px #ff6b0060' }}
+        whileTap={{ scale: 0.95 }}
+        style={{
+        padding: '10px 24px', background: '#ff6b00', color: 'white',
+        borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer'
+  }}>
+         Hire Me
         </motion.a>
       </div>
     </motion.nav>
